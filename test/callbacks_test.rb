@@ -12,6 +12,19 @@ module Spike
       Recipe.create
     end
 
+    def test_before_save_on_child_record
+      recipe = Recipe.create(id: 1, steps: [Step.create])
+      recipe.steps.create
+      Step.any_instance.expects(:before_save_callback)
+      recipe.save
+    end
+
+    def test_before_save_existing_record
+      recipe = Recipe.create
+      Recipe.any_instance.expects(:before_save_callback)
+      recipe.save
+    end
+
     def test_before_create
       Recipe.any_instance.expects(:before_create_callback)
       Recipe.create
