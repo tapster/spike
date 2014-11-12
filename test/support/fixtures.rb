@@ -1,5 +1,6 @@
 class Recipe < Spike::Base
   has_many :groups
+  has_many :steps
   has_one :image
   has_one :background_image, class_name: 'Image'
   has_one :alternate, class_name: 'Recipe', uri_template: '/recipes/:recipe_id/alternates/recipe'
@@ -35,6 +36,9 @@ end
 
 class Image < Spike::Base
   method_for :create, :put
+end
+
+class Step < Spike::Base
 end
 
 class StepImage < Image
